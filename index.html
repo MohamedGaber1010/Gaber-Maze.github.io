@@ -1,0 +1,102 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Khalil Maze</title>
+	<link rel="stylesheet" href="css/css.css"/>
+	<link href="https://fonts.googleapis.com/css2?family=Modak&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+
+</head>
+<body>
+	
+	
+	<div class="header" id="header">
+		<div class="left" id="left">
+			<div class="createMaze">
+				<div class="btnCreateMaze" id="btnCreateMaze">
+					Create Maze
+				</div>
+				<div class="dropCreateMaze" id="dropCreateMaze">
+					<div id="dfs"> Deapth First Search</div>
+					<div id="kruskal"> Kruskal's algorithm</div>
+					<div id="prim"> Prim's algorithm</div>
+					<div id="backtrack"> Recursive backtracker</div>
+				</div>
+			</div>
+			<div class="solveMaze">
+				<div class="btnSolveMaze">
+					Solve
+				</div>
+				<div class="dropSolveMaze" id="dropSolveMaze">
+					<div id="dijkstra"> Dijkstra Algorithm</div>
+					<div id="Astar"> A-Star Algorithm</div>
+					<div id="bfs"> Breadth First Search</div>
+					<div id="collectAll"> Collect All Carrots </div>
+					
+				</div>
+			</div>
+		</div>
+		
+		<div class="mid" id="mid">
+			Solve Your Maze
+		</div>
+		<div class="right" id="right">
+			<div class="clearMaze" id="clearMaze" style="display: inline-block; width: 85px; margin: 8px 3px;">Clear Board</div>
+			<div class="clearMaze" id="addCarrot" style="display: inline-block; width: 80px; margin: 8px 3px;">Add Carrot</div>
+			<div id="points" class="points" style="color: aliceblue; display: inline-block;font-size: 25px;">points : 00</div>
+		</div>
+	</div>
+	
+	
+	<div id="contain">
+		<canvas id="cn"></canvas>
+	</div>
+	
+	
+	
+	
+	
+	
+	<div class="sidebar" id="sidebar">
+		
+		
+		<div class="game">
+			<div class="timer" id="timer">00:00</div>
+			<div class="startGame" id="startGame" > Start </div>
+		</div>
+		
+		<div class="settings" id="settings">
+			<h2>Settings</h2>
+			
+			<div> <label>Path Width :</label> <input id="pathWidth" type="text"/> </div>
+			<div> <label>Wall Width :</label> <input id="wallWidth" type="text"/> </div>
+			<div> <label>Path Color :</label> <input id="pathColor" type="text"/> </div>
+			<div> <label>Wall Color :</label> <input id="wallColor" type="text"/> </div>
+			<div> <label>Row Number :</label> <input id="rowNum" type="text"/> </div>
+			<div> <label>Col Number :</label> <input id="colNum" type="text"/> </div>
+			<div id="btnSet" class="btnSet"> <div>Create</div></div> 
+			
+		</div>
+		<div class="levels">
+			<h3>levels</h3>
+			<div id="easy">Easy</div>
+			<div id="normal">Normal</div>
+			<div id="hard">Hard</div>
+			
+		</div>
+		
+	</div>
+	
+	
+	
+	
+
+
+
+
+	<script src="js/js.js"></script>
+	
+</body>
+</html>
