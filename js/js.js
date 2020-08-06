@@ -157,6 +157,7 @@ class grid{
 			this.rowN = parseInt(set.getRowNum());
 			this.cellN = this.colN * this.rowN;
 			this.initGrid();
+			carrotArr.clear() ;
 		}
 		this.drawGrid();
 	}
@@ -719,13 +720,13 @@ canvas.onmouseup = function (e){if(an != null || gameStart == 1) return; canvas.
 
 function startDfs(){
 	animArr.length = 0 ;
-	carrotArr.clear;
+	carrotArr.clear();
 	dfs(Math.floor(Math.random()*10000)%maze.cellN);
 	animation(animArr);
 }
 function startBacktrack(){
 	animArr.length = 0 ;
-	carrotArr.clear;
+	carrotArr.clear();
 	backtrack(Math.floor(Math.random()*10000)%maze.cellN);
 	animation(animArr);
 }
@@ -746,7 +747,7 @@ kruskalAlgo.onclick = function (){
 	if(an != null || gameStart == 1) return;
 	if(an == null){
 		animArr.length = 0 ;
-		carrotArr.clear;
+		carrotArr.clear();
 		maze.blockGrid();
 		kruskal();
 	}
@@ -755,7 +756,7 @@ primAlgo.onclick = function (){
 	if(an != null || gameStart == 1) return;
 	if(an == null){
 		animArr.length = 0 ;
-		carrotArr.clear;
+		carrotArr.clear();
 		maze.blockGrid();
 		prim(Math.floor(Math.random()*10000)%maze.cellN);
 	}
@@ -1439,7 +1440,7 @@ function finishGame(type){
 	gameStart = 0;
 	clearInterval(TimeVar);
 	TimeVar = null;
-	carrotArr.length = 0 ;
+	carrotArr.clear() ;
 	changeHeader(type);
 	setTimeout(changeHeader,5000,'sadf');
 	
@@ -1623,7 +1624,6 @@ function changeSet(){
 	if(isValidHex(pathCol.value) == false ) return;
 	if(isValidHex(wallCol.value) == false ) return;
 	
-	console.log('hre');
 	set = lev.createSettingInstance();
 	maze.getNewSet(set);
 	end = maze.cellN-1;
