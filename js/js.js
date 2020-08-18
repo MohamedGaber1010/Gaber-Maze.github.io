@@ -1250,23 +1250,22 @@ function collectAll(s,e){
 			nextNode(nx);
 			return;
 		}
-		console.log(path);
 	}
 	
 	function solveBFS(){
 		console.log('solve BFS Graph');
 		var que = [];
-		var vis = [];
+//		var vis = [];
 		var parN = [];
 		for(var i = 0 ;i< (1<<carrotN+2) ;i++) parN[i] = i;
 		
-		for(var i = 0 ;i < carrotN+2 ;i++){	
-			vis[i] = [];
-			for(var j = 0 ; j<(1<<carrotN+2);j++) vis[i][j] = 0 ;
-		}
+//		for(var i = 0 ;i < carrotN+2 ;i++){	
+//			vis[i] = [];
+//			for(var j = 0 ; j<(1<<carrotN+2);j++) vis[i][j] = 0 ;
+//		}
 		
 		que.push({v:0,d:0,allV:1 ,prevN : 0 });
-		vis[0][1] = 1;
+//		vis[0][1] = 1;
 		
 		function addToQue(node , s , prev, dist){
 			
@@ -1277,78 +1276,160 @@ function collectAll(s,e){
 				else r = md;
 			}
 			que.splice(r,0,{v:node , d: dist , allV : s , prevN : prev});
+			
 		}
 		
-		function makeParN(){
+		
+		
+		
+		
+		
+		
+		function makeParN(cntlast){
 			
 			var visPar = [];
 			for(var i = 0 ; i< carrotN+3;i++) visPar[i] = 0;
-			
-			createPath((1<<carrotN+2)-1);
+			createPath(cnt);
 			function createPath(x){
-				if(x == 1){
+				if(x == 0){
 					path.push(0);
 					visPar[0] = 1;
 					return;
 				}
-				createPath(parN[x]);
+				createPath(que[x].prevN);
 				for(var i = 0 ;i<carrotN+2 ;i++){
-					if(visPar[i] == 0 && ((x>>i)&1 )== 1) {
+					if(visPar[i] == 0 && ((que[x].allV>>i)&1 )== 1){
 						path.push(t[i]);
 						visPar[i] = 1;
 						return;
 					}
 				}
-				return;
 			}
+			
 		}
 		
-		
-		while(que.length>0){
+		var cnt = 0 ;
+		var finish = 0;
+		while(cnt < que.length){
+			if(finish == 1) break;
 			var sz = que.length;
-			var finish = 0 ;
 			
-			for(var i = 0;i<sz;i++){
-				var node = que[0].v;
-				var dist = que[0].d;
-				var state = que[0].allV;
-				var prevState = que[0].prevN;
+			
+			while(cnt<sz){
 				
-				que.shift();
-				
-				if(parN[state] == state) parN[state] = prevState;
-				
+				var node = que[cnt].v;
+				var dist = que[cnt].d;
+				var state = que[cnt].allV;
+
 				if(node == carrotN+1 && state == (1<<carrotN+2)-1){
 					finish = 1;
-					console.log('ans : ',dist);
-					makeParN();
-					console.log('the Path :' , path);
-					
+//					console.log('ans : ', dist);
+//					console.log('final cnt : ', cnt , que.length);
+					makeParN(cnt);
+//					console.log('the Path :' , path);
 					break;
 				}
-				
+
+
 				for(var j = 0 ; j< g[node].length;j++ ){
 					var nextNode = g[node][j];
-					
+
 					if((state>>nextNode) & 1 ) continue;
-					
+
 					var nextState = (state | (1<<nextNode));
-					
-					if(vis[nextNode][nextState]) continue;
-					
+
+//					if(vis[nextNode][nextState]) continue;
+
 					if(node == carrotN+1 && state != (1<<carrotN+1)-1) continue;
-					
-					vis[nextNode][nextState] = 1;
-					addToQue(nextNode , nextState , state , dist + dp[t[node]][t[nextNode]]);
-					
+
+//					vis[nextNode][nextState] = 1;
+					addToQue(nextNode , nextState , cnt , dist + dp[t[node]][t[nextNode]]);
+
 				}
+				cnt++;
+				
 			}
-			if(finish == 1) break;
+			
 		}
 		
+		
+//		
+//		
+//		function makeParN(){
+//			
+//			var visPar = [];
+//			for(var i = 0 ; i< carrotN+3;i++) visPar[i] = 0;
+//			
+//			createPath((1<<carrotN+2)-1);
+//			function createPath(x){
+//				if(x == 1){
+//					path.push(0);
+//					visPar[0] = 1;
+//					return;
+//				}
+//				createPath(parN[x]);
+//				for(var i = 0 ;i<carrotN+2 ;i++){
+//					if(visPar[i] == 0 && ((x>>i)&1 )== 1) {
+//						path.push(t[i]);
+//						visPar[i] = 1;
+//						return;
+//					}
+//				}
+//				return;
+//			}
+//		}
+//		
+//		
+//		
+//		while(que.length>0){
+//			var sz = que.length;
+//			var finish = 0 ;
+//			
+//			for(var i = 0;i<sz;i++){
+//				var node = que[0].v;
+//				var dist = que[0].d;
+//				var state = que[0].allV;
+//				var prevState = que[0].prevN;
+////				vis[node][state] = 1;
+//				que.shift();
+//				
+//				if(parN[state] == state) parN[state] = prevState;
+//				
+//				if(node == carrotN+1 && state == (1<<carrotN+2)-1){
+//					finish = 1;
+//					console.log('ans : ',dist);
+//					makeParN();
+//					console.log('the Path :' , path);
+//					
+//					break;
+//				}
+//				
+//				for(var j = 0 ; j< g[node].length;j++ ){
+//					var nextNode = g[node][j];
+//					
+//					if((state>>nextNode) & 1 ) continue;
+//					
+//					var nextState = (state | (1<<nextNode));
+//					
+////					if(vis[nextNode][nextState]) continue;
+//					
+////					if(node == carrotN+1 && state != (1<<carrotN+1)-1) continue;
+//					
+////					vis[nextNode][nextState] = 1;
+//					addToQue(nextNode , nextState , state , dist + dp[t[node]][t[nextNode]]);
+//					
+//				}
+//			}
+//			if(finish == 1) break;
+//		}
+//		
+		
+
+		
 	}
-	if(carrotN < 13) solveBFS();
+	if(carrotN < 9) solveBFS();
 	else  minSpanTree();
+	
 	finishPath();
 	
 	
